@@ -17,16 +17,22 @@ defmodule Banshee.Apply do
 
   import Banshee, only: [select: 2, transform: 3]
 
-  def select(fun, navs, data) when is_function(fun, 1), do: select(navs, fun.(data))
-  def select({m, f}, n, d) when is_atom(m) and is_atom(f), do: select(n, apply(m, f, [d]))
-  def select({m, f, a}, n, d) when is_atom(m) and is_atom(f), do: select(n, apply(m, f, [a, d]))
-  
+  def select(fun, navs, data) when is_function(fun, 1),
+    do: select(navs, fun.(data))
+
+  def select({m, f}, n, d) when is_atom(m) and is_atom(f),
+    do: select(n, apply(m, f, [d]))
+
+  def select({m, f, a}, n, d) when is_atom(m) and is_atom(f),
+    do: select(n, apply(m, f, [a, d]))
+
   def transform(f, n, d, x) when is_function(f, 1), do: transform(n, f.(d), x)
+
   def transform({m, f}, n, d, x) when is_atom(m) and is_atom(f) do
     transform(n, apply(m, f, [d]), x)
   end
+
   def transform({m, f, a}, n, d, x) when is_atom(m) and is_atom(f) do
     transform(n, apply(m, f, [a, d]), x)
   end
-
 end

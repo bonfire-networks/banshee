@@ -14,5 +14,4 @@ defmodule Banshee.MapKey do
       _ -> data
     end
   end
-    
 end
